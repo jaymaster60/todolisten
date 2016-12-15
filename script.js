@@ -2,7 +2,7 @@ var express    = require("express");
 var mysql      = require('mysql');
  var path    = require("path");
  var body 	= require("body-parser");
- 
+
  var fs = require('fs');
 
 
@@ -14,17 +14,20 @@ var mysql      = require('mysql');
   password : '',
   database : 'test'
 });
+
 var app = express();
 // parse application/x-www-form-urlencoded
 app.use(body.urlencoded({ extended: false }))
 
 // parse application/json
 app.use(body.json());
+
+//DATABASE connection
 connection.connect(function(err){
 if(!err) {
-    console.log("Database is connected ... nn");    
+    console.log("Database is connected ... nn");
 } else {
-    console.log("Error connecting database ... nn");    
+    console.log("Error connecting database ... nn");
 }
 });
 //express.static(__dirname + '/css');
@@ -51,11 +54,11 @@ app.get('/dashboard',function(req,res){
 	console.log("email: "+user_email);
 	console.log("password: "+user_password);
 	res.send("Your email:" +user_email );
-	
+
 	var q= 'select * from user';
-	
+
 	/*
-	
+
 connection.query(q, function(err, rows, fields) {
 connection.end();
  if (!err)
@@ -69,5 +72,3 @@ connection.end();
 
 
 app.listen(3000);
-
- 

@@ -6,7 +6,7 @@ var path    = require("path");
 // Configure our HTTP server to respond with Hello World to all requests.
 var server = http.createServer(function (request, response) {
   response.writeHead(200, {"Content-Type": "text/plain"});
- res.sendFile(path.join(__dirname + '/index.html'));
+  response.sendFile(path.join(__dirname + '/index.html'));
   response.end("Hello World\n");
 });
 
@@ -15,4 +15,3 @@ server.listen(8000);
 
 // Put a friendly message on the terminal
 console.log("Server running at http://127.0.0.1:8000/");
-

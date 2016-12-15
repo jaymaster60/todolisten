@@ -3,12 +3,12 @@ var mysql      = require('mysql');
  var path    = require("path");
  var body 	= require("body-parser");
  var passwordHash = require('password-hash');
-
+var port = 3001;
 
  var  connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
-  password : '',
+  password : 'alien',
   database : 'test'
 });
 
@@ -19,12 +19,13 @@ app.use(body.urlencoded({ extended: false }))
 
 // parse application/json
 app.use(body.json());
-app.use('/static', express.static(path.join(__dirname + '/css')));
+app.use(express.static('./'));
+//app.use('/static', express.static(path.join(__dirname + '/css')));
 connection.connect(function(err){
 if(!err) {
-    console.log("Database is connected ... nn");    
+    console.log("Database is connected ... nn");
 } else {
-    console.log("Error connecting database ... nn");    
+    console.log("Error connecting database ... nn");
 }
 });
 
@@ -51,9 +52,9 @@ app.post("/", function (req, res){
 	 var hashedPassword = passwordHash.generate(user_password);
 	// console.log(hashedPassword);
 	console.log("password: "+hashedPassword);
-	
+
 	var myObject = {
-		email: user_email, 
+		email: user_email,
 		password: hashedPassword
 	};
 
@@ -65,7 +66,7 @@ app.post("/", function (req, res){
 
 /*
     var hashedPassword = 'sha1$3I7HRwy7$cbfdac6008f9cab4083784cbd1874f76618d2a97';
-    
+
     console.log(passwordHash.isHashed('password123')); // false
     console.log(passwordHash.isHashed(hashedPassword)); // true
 	*/
@@ -83,4 +84,5 @@ connection.end();
 
 });
 
-app.listen(3001);
+app.listen(port);
+console.log("Listening on Port"+port);
